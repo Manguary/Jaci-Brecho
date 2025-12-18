@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Precificação | Jaci Brechó & Ampla</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Calculadora Inteligente 2025 | Jaci Brechó & Ampla</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --jaci-brown: #5d4037;
-            --jaci-light: #d7ccc8;
-            --ampla-gold: #c5a059;
-            --bg: #f8f9fa;
+            /* Identidade Ampla */
+            --ampla-blue: #002855;
+            --ampla-gold: #d4af37;
+            --ampla-hover: #004085;
+            /* Identidade Jaci Brechó */
+            --jaci-bg: #fdfbf7;
             --white: #ffffff;
-            --text: #2d2d2d;
-            --accent-green: #455a64;
+            --text-dark: #1a1a1a;
+            --text-gray: #666;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f9;
+            color: var(--text-dark);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,311 +36,308 @@
             width: 100%;
             max-width: 1100px;
             background: var(--white);
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .header {
-            padding: 25px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #f0f0f0;
-            background: #fff;
-        }
-
-        .logo-jaci { height: 70px; }
-        .logo-ampla { height: 35px; opacity: 0.8; }
-
-        .main-content {
+            border-radius: 40px;
             display: grid;
-            grid-template-columns: 1fr 420px;
-            padding: 40px;
-            gap: 40px;
+            grid-template-columns: 1.2fr 0.8fr;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 40, 85, 0.12);
         }
 
         @media (max-width: 950px) {
-            .main-content { grid-template-columns: 1fr; }
-            .header { flex-direction: column; gap: 20px; text-align: center; }
+            .container { grid-template-columns: 1fr; }
         }
 
-        /* Coluna de Inputs */
-        .input-section h2 {
+        /* Lado Esquerdo - Painel de Configuração */
+        .config-panel {
+            padding: 50px;
+            background: var(--jaci-bg);
+            border-right: 1px solid #eee;
+        }
+
+        .header-branding {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-jaci { height: 70px; object-fit: contain; }
+        .logo-ampla { height: 30px; object-fit: contain; filter: grayscale(1) brightness(0.2); }
+
+        h2 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            color: var(--jaci-brown);
-            margin: 0 0 25px 0;
+            font-size: 2.2rem;
+            color: var(--ampla-blue);
+            margin-bottom: 30px;
         }
 
         .input-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .form-control { margin-bottom: 15px; }
-        .form-control.full { grid-column: span 2; }
+        .field { margin-bottom: 22px; }
+        .full { grid-column: span 2; }
 
         label {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-            color: #999;
+            letter-spacing: 1.2px;
+            color: var(--text-gray);
+            margin-bottom: 8px;
         }
 
-        input, select {
+        select, input[type="number"] {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #f2f2f2;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: all 0.3s;
+            padding: 15px;
+            border: 2px solid #e8ebef;
+            border-radius: 14px;
+            font-size: 1rem;
+            transition: 0.3s;
         }
 
-        input:focus {
+        select:focus, input:focus {
             border-color: var(--ampla-gold);
             outline: none;
-            background: #fffdfa;
+            background: white;
         }
 
-        /* Novo campo de porcentagem */
-        .profit-selector {
-            background: #fdfaf6;
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px dashed var(--ampla-gold);
+        /* Controle de Lucro Inteligente */
+        .profit-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e0e6ed;
             margin-top: 10px;
         }
 
-        /* Card de Resultados */
-        .result-card {
-            background: var(--jaci-brown);
-            border-radius: 24px;
-            padding: 35px;
-            color: white;
-            box-shadow: 0 15px 40px rgba(93, 64, 55, 0.25);
-        }
-
-        .custom-price-box {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 25px;
-            border-radius: 18px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .custom-price-box span {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .insight-text {
+            font-size: 0.7rem;
+            color: var(--ampla-gold);
+            font-weight: 600;
+            margin-bottom: 10px;
             display: block;
-            margin-bottom: 5px;
         }
 
-        .custom-price-box h3 {
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            accent-color: var(--ampla-blue);
+            cursor: pointer;
+        }
+
+        /* Lado Direito - Resultados (Cores Ampla) */
+        .result-panel {
+            background: var(--ampla-blue);
+            color: var(--white);
+            padding: 60px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .price-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            opacity: 0.7;
+        }
+
+        .main-price {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3.5rem;
-            margin: 0;
+            font-size: 5.5rem;
+            color: var(--ampla-gold);
+            margin: 15px 0;
+            font-weight: 700;
+        }
+
+        .dashboard-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+        }
+
+        .row:last-child { border: none; }
+
+        .profit-highlight {
+            font-weight: 600;
             color: var(--ampla-gold);
         }
 
-        .other-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .option-item {
-            background: rgba(0,0,0,0.2);
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .option-item span { font-size: 0.65rem; opacity: 0.7; display: block; }
-        .option-item strong { font-size: 1.1rem; display: block; margin-top: 5px; }
-
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .footer {
-            text-align: center;
-            padding: 20px;
+        .footer-info {
             font-size: 0.65rem;
-            color: #ccc;
-            letter-spacing: 1px;
+            opacity: 0.5;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            line-height: 1.6;
+        }
+
+        .markup-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--ampla-gold);
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header class="header">
-        <img src="jaci.png" alt="Jaci Brechó" class="logo-jaci" onerror="this.style.display='none'; this.after('JACI BRECHÓ')">
-        <div style="text-align: right;">
-            <p style="margin:0; font-size: 0.6rem; font-weight: bold; color: #ccc;">SYSTEM BY</p>
+    <div class="config-panel">
+        <div class="header-branding">
+            <img src="jaci.png" alt="Jaci Brechó" class="logo-jaci" onerror="this.style.display='none'; this.after('JACI BRECHÓ')">
             <img src="ampla.png" alt="Ampla" class="logo-ampla" onerror="this.style.display='none'; this.after('AMPLA')">
         </div>
-    </header>
 
-    <main class="main-content">
-        <div class="input-section">
-            <h2>Composição de Custos</h2>
-            
-            <div class="input-grid">
-                <div class="form-control full">
-                    <label>Categoria da Peça</label>
-                    <select id="categoria" onchange="calcular()">
-                        <option value="43.12">Vintage</option>
-                        <option value="48.78">Grife / Marcas</option>
-                        <option value="45.60">Calçados</option>
-                        <option value="40.12">Peças de Cima</option>
-                        <option value="44.07">Peças de Baixo</option>
-                        <option value="24.77">Acessórios (Sem Fixo)</option>
-                    </select>
-                </div>
+        <h2>Curadoria 2025</h2>
 
-                <div class="form-control">
-                    <label>Valor Pago (R$)</label>
-                    <input type="number" id="v_compra" value="12.56" step="0.01" oninput="calcular()">
-                </div>
+        <div class="input-grid">
+            <div class="field full">
+                <label>Categoria Circular</label>
+                <select id="categoria" onchange="aplicarInteligencia()">
+                    <option value="43.12" data-lucro="75" data-msg="PEÇA VINTAGE: Valor histórico permite margem alta.">Vintage (Exclusiva)</option>
+                    <option value="48.78" data-lucro="70" data-msg="GRIFE: O status da marca suporta valor premium.">Marcas / Grife</option>
+                    <option value="45.60" data-lucro="62" data-msg="CALÇADOS: Margem média para alta rotatividade.">Calçados</option>
+                    <option value="40.12" data-lucro="55" data-msg="PARTE DE CIMA: Peças básicas para giro rápido.">Peças de Cima (Tops/T-shirts)</option>
+                    <option value="44.07" data-lucro="58" data-msg="PARTE DE BAIXO: Peças essenciais de curadoria.">Peças de Baixo (Calças/Saias)</option>
+                    <option value="24.77" data-lucro="80" data-msg="ACESSÓRIOS: Baixo custo operacional, margem máxima.">Acessórios</option>
+                </select>
+            </div>
 
-                <div class="form-control">
-                    <label>Limpeza/Reparo (R$)</label>
-                    <input type="number" id="v_limpeza" value="1.82" step="0.01" oninput="calcular()">
-                </div>
+            <div class="field">
+                <label>Preço de Aquisição (R$)</label>
+                <input type="number" id="v_compra" value="15.00" step="0.01" oninput="calcular()">
+            </div>
 
-                <div class="form-control">
-                    <label>Embalagem (R$)</label>
-                    <input type="number" id="v_embalagem" value="4.00" oninput="calcular()">
-                </div>
+            <div class="field">
+                <label>Processamento/Limpeza (R$)</label>
+                <input type="number" id="v_limpeza" value="5.00" step="0.01" oninput="calcular()">
+            </div>
 
-                <div class="form-control">
-                    <label id="label_fixo">Custo Fixo (R$)</label>
-                    <input type="number" id="v_fixo" value="30.61" oninput="calcular()">
+            <div class="field full">
+                <div class="profit-card">
+                    <span id="inteligencia_msg" class="insight-text">Analisando categoria...</span>
+                    <label style="color: var(--ampla-blue);">Margem de Lucro: <strong id="lbl_margem">70%</strong></label>
+                    <input type="range" id="margem_range" min="20" max="90" value="70" oninput="updateMargem(this.value)">
                 </div>
+            </div>
 
-                <div class="form-control full">
-                    <div class="profit-selector">
-                        <label style="color: var(--jaci-brown);">Sua Margem de Lucro Desejada (%)</label>
-                        <div style="display: flex; align-items: center; gap: 15px;">
-                            <input type="range" id="v_margem_range" min="10" max="90" value="67" style="flex: 1;" oninput="syncMargem(this.value)">
-                            <input type="number" id="v_margem_num" value="67" style="width: 80px; border-color: var(--ampla-gold);" oninput="syncMargem(this.value)">
-                        </div>
-                        <p style="font-size: 0.6rem; color: #888; margin: 10px 0 0 0;">Dica: 67% de margem equivale a cobrar aprox. 3x o custo.</p>
-                    </div>
-                </div>
+            <div class="field full">
+                <label>Custo Fixo Mensal por Peça (R$)</label>
+                <input type="number" id="v_fixo" value="30.61" step="0.01" oninput="calcular()">
+                <p style="font-size: 0.6rem; color: #999; margin-top: 8px;">*Cálculo baseado em Pró-labore + Contas mensais / meta de vendas.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="result-panel">
+        <div>
+            <span class="price-label">Valor de Venda Recomendado</span>
+            <h1 class="main-price" id="res_venda">R$ 0,00</h1>
+            <div id="markup_badge" class="markup-badge">MARKUP: 1.0x</div>
+        </div>
+
+        <div class="dashboard-box">
+            <div class="row">
+                <span>Custo Total Unitário</span>
+                <span id="det_custo">R$ 0,00</span>
+            </div>
+            <div class="row">
+                <span>Investimento Fixo Ampla</span>
+                <span id="det_fixo">R$ 0,00</span>
+            </div>
+            <div class="row">
+                <span>Lucro Bruto Líquido</span>
+                <span id="det_lucro" class="profit-highlight">R$ 0,00</span>
             </div>
         </div>
 
-        <aside class="result-card">
-            <div class="custom-price-box">
-                <span>Preço Final Recomendado</span>
-                <h3 id="res_personalizado">R$ 0,00</h3>
-                <small id="markup_info" style="opacity: 0.6; font-size: 0.7rem;">Markup: 1.00x</small>
-            </div>
-
-            <div class="detail-row">
-                <span>Custo Total da Peça</span>
-                <strong id="det_custo_total">R$ 0,00</strong>
-            </div>
-            <div class="detail-row">
-                <span>Lucro Bruto Estimado</span>
-                <strong id="det_lucro_bruto" style="color: var(--ampla-gold);">R$ 0,00</strong>
-            </div>
-            
-            <div class="other-options">
-                <div class="option-item">
-                    <span>Lucro 2x (Dobro)</span>
-                    <strong id="res_2x">R$ 0,00</strong>
-                </div>
-                <div class="option-item">
-                    <span>Lucro 3x (Triplo)</span>
-                    <strong id="res_3x">R$ 0,00</strong>
-                </div>
-            </div>
-
-            <div style="margin-top: 30px; text-align: center;">
-                <span style="font-size: 0.65rem; text-transform: uppercase; opacity: 0.5; letter-spacing: 1px;">Referência da Categoria</span>
-                <div id="res_ticket" style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--jaci-light);">R$ 0,00</div>
-            </div>
-        </aside>
-    </main>
-
-    <footer class="footer">
-        PRECIFICAÇÃO ESTRATÉGICA PARA JACI BRECHÓ &copy; 2024
-    </footer>
+        <div class="footer-info">
+            Sistema de Inteligência Circular<br>
+            <strong>Jaci Brechó × Ampla Consultoria</strong><br>
+            © 2025 – Todos os direitos reservados
+        </div>
+    </div>
 </div>
 
 <script>
-    function syncMargem(val) {
-        document.getElementById('v_margem_range').value = val;
-        document.getElementById('v_margem_num').value = val;
+    function updateMargem(val) {
+        document.getElementById('lbl_margem').innerText = val + "%";
+        calcular();
+    }
+
+    function aplicarInteligencia() {
+        const select = document.getElementById('categoria');
+        const opt = select.options[select.selectedIndex];
+        
+        const margemSugerida = opt.getAttribute('data-lucro');
+        const msg = opt.getAttribute('data-msg');
+
+        // Atualizar Slider
+        document.getElementById('margem_range').value = margemSugerida;
+        document.getElementById('lbl_margem').innerText = margemSugerida + "%";
+        document.getElementById('inteligencia_msg').innerText = "ESTRATÉGIA: " + msg;
+
+        // Regra especial da planilha: Acessórios não carregam custo fixo total
+        if(opt.text.includes("Acessórios")) {
+            document.getElementById('v_fixo').value = 0;
+        } else if(document.getElementById('v_fixo').value == 0) {
+            document.getElementById('v_fixo').value = 30.61;
+        }
+
         calcular();
     }
 
     function calcular() {
-        // Captura
         const compra = parseFloat(document.getElementById('v_compra').value) || 0;
         const limpeza = parseFloat(document.getElementById('v_limpeza').value) || 0;
-        const embalagem = parseFloat(document.getElementById('v_embalagem').value) || 0;
-        let fixo = parseFloat(document.getElementById('v_fixo').value) || 0;
-        const margemDesejada = parseFloat(document.getElementById('v_margem_num').value) || 0;
-        const ticketMeta = parseFloat(document.getElementById('categoria').value);
-        
-        // Regra de Acessórios
-        const catText = document.getElementById('categoria').options[document.getElementById('categoria').selectedIndex].text;
-        if(catText.includes("Acessórios")) {
-            fixo = 0;
-            document.getElementById('v_fixo').style.opacity = "0.3";
-            document.getElementById('label_fixo').style.opacity = "0.3";
-        } else {
-            document.getElementById('v_fixo').style.opacity = "1";
-            document.getElementById('label_fixo').style.opacity = "1";
-        }
+        const fixo = parseFloat(document.getElementById('v_fixo').value) || 0;
+        const margem = parseFloat(document.getElementById('margem_range').value) || 0;
 
-        const custoTotal = compra + limpeza + embalagem + fixo;
+        const custoTotal = compra + limpeza + fixo;
         
-        // Cálculo de Preço por Margem (Fórmula Comercial)
-        // Preço = Custo / (1 - Margem/100)
+        // Cálculo de Margem Comercial (Price over Margin)
+        // Fórmula: Preço = Custo / (1 - Margem%)
         let precoFinal = 0;
-        if (margemDesejada < 100) {
-            precoFinal = custoTotal / (1 - (margemDesejada / 100));
+        if (margem < 100) {
+            precoFinal = custoTotal / (1 - (margem / 100));
         }
 
-        // Markup Real
-        const markup = precoFinal > 0 ? (precoFinal / custoTotal).toFixed(2) : 0;
-        const lucroBruto = precoFinal - custoTotal;
+        const lucroLíquido = precoFinal - custoTotal;
+        const markup = precoFinal / custoTotal;
 
-        // Formatação
+        // Formatação Moeda
         const f = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
         // Update UI
-        document.getElementById('det_custo_total').innerText = f(custoTotal);
-        document.getElementById('det_lucro_bruto').innerText = f(lucroBruto);
-        document.getElementById('res_personalizado').innerText = f(precoFinal);
-        document.getElementById('markup_info').innerText = "O preço é " + markup + "x o valor do custo";
-        
-        document.getElementById('res_2x').innerText = f(custoTotal * 2);
-        document.getElementById('res_3x').innerText = f(custoTotal * 3);
-        document.getElementById('res_ticket').innerText = "Ticket Médio: " + f(ticketMeta);
+        document.getElementById('res_venda').innerText = f(precoFinal);
+        document.getElementById('det_custo').innerText = f(compra + limpeza);
+        document.getElementById('det_fixo').innerText = f(fixo);
+        document.getElementById('det_lucro').innerText = f(lucroLíquido);
+        document.getElementById('markup_badge').innerText = "MARKUP: " + markup.toFixed(2) + "x";
     }
 
-    window.onload = calcular;
+    // Inicialização
+    window.onload = aplicarInteligencia;
 </script>
 
 </body>
